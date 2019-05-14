@@ -2,6 +2,8 @@
 #include "dateseditdialog.h"
 #include "calendarwidget.h"
 
+#include <QTextCharFormat>
+
 CalendarWidget::CalendarWidget(QWidget *parent)
     : QCalendarWidget(parent),
       _parent(dynamic_cast<DatesEditDialog*>(parent))
@@ -13,7 +15,10 @@ CalendarWidget::CalendarWidget(QWidget *parent)
 
     _selectedDraw.pen.setColor(QColor(Qt::blue));
     _selectedDraw.brush.setColor(Qt::transparent);
-//    connect(this,SIGNAL(clicked(const QDate&)),this, SLOT(onSelectionChanged(const QDate&)));
+
+    _bookedDraw.pen.setColor(QColor(Qt::red));
+    _bookedDraw.brush.setColor(Qt::transparent);
+
     connect(this, &QCalendarWidget::clicked, this, &CalendarWidget::onSelectionChanged);
 }
 
@@ -26,12 +31,26 @@ BookDaysData CalendarWidget::getBookData() const
     return BookDaysData(_dateInSelected, _dateOutSelected);
 }
 
+void CalendarWidget::refresh()
+{
+    _dateInSelected = _dateOutSelected = QDate();
+    forceRedraw();
+}
+
+void CalendarWidget::forceRedraw()
+{
+    setVisible(false);
+    setVisible(true);
+}
+
 void CalendarWidget::paintCell(QPainter* painter, const QRect& rect, const QDate& date) const
 {
+    QCalendarWidget::paintCell(painter, rect, date);
     if(date >= _dateInSelected && date <= _dateOutSelected)
     {
         painter->setPen(_selectedDraw.pen);
         painter->setBrush(_selectedDraw.brush);
+        painter->drawRect(rect.adjusted(0, 0, -1, -1));
     }
     const auto& bookedDates = _parent->getDatesBookList();
     auto it = std::find_if(bookedDates.cbegin(), bookedDates.cend(), [date](const BookDaysData& bookData)
@@ -42,8 +61,8 @@ void CalendarWidget::paintCell(QPainter* painter, const QRect& rect, const QDate
     {
         painter->setPen(_bookedDraw.pen);
         painter->setBrush(_bookedDraw.brush);
+        painter->drawRect(rect.adjusted(0, 0, -1, -1));
     }
-    QCalendarWidget::paintCell(painter, rect, date);
 }
 
 void CalendarWidget::onSelectionChanged(const QDate &date)
@@ -51,14 +70,18 @@ void CalendarWidget::onSelectionChanged(const QDate &date)
     if(_dateInSelected.isNull() || _dateOutSelected.isNull())
     {
         _dateInSelected = _dateOutSelected = date;
+        return;
     }
     if(date <= _dateOutSelected)
     {
         _dateInSelected = date;
     }
-    if(date >= _dateOutSelected)
+    else if(date > _dateOutSelected)
     {
         _dateInSelected = _dateOutSelected;
         _dateOutSelected = date;
     }
+    emit dateChanged(BookDaysData(_dateInSelected, _dateOutSelected));
+
+    forceRedraw();
 }

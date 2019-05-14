@@ -33,13 +33,14 @@ class CalendarWidget : public QCalendarWidget
 public:
     explicit CalendarWidget(QWidget* parent = nullptr);
     BookDaysData getBookData() const;
+    void refresh();
 protected:
     struct DateDrawData
     {
         QPen pen;
         QBrush brush;
     };
-
+    void forceRedraw();
     void paintCell(QPainter* painter, const QRect& rect, const QDate& date) const override;
 
     QDate _dateInSelected;
@@ -52,6 +53,9 @@ protected:
 
 protected slots:
     void onSelectionChanged(const QDate& date);
+
+signals:
+    void dateChanged(const BookDaysData& data);
 };
 
 #endif // CALENDARWIDGET_H

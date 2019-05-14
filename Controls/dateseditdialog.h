@@ -25,6 +25,10 @@ public:
 protected:
     QList<BookDaysData> _bookedList;
 
+private slots:
+    void on_refreshButton_clicked();
+    void onDateChanged(const BookDaysData& data);
+
 private:
     Ui::DatesEditDialog* ui = nullptr;
 };
