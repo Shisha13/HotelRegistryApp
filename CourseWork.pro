@@ -32,7 +32,9 @@ SOURCES += \
     Logic/model.cpp \
     Logic/delegate.cpp \
     Controls/dateseditdialog.cpp \
-    Controls/calendarwidget.cpp
+    Controls/calendarwidget.cpp \
+    Controls/roomDataList.cpp \
+    Controls/addpersonsdialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -42,11 +44,14 @@ HEADERS += \
     Logic/delegate.h \
     Controls/dateseditdialog.h \
     calendarwidget.h \
-    Controls/calendarwidget.h
+    Controls/calendarwidget.h \
+    Controls/roomDataList.h \
+    Controls/addpersonsdialog.h
 
 FORMS += \
         mainwindow.ui \
-    Controls/dateseditdialog.ui
+    Controls/dateseditdialog.ui \
+    Controls/addpersonsdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

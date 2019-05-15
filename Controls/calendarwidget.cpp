@@ -46,21 +46,23 @@ void CalendarWidget::forceRedraw()
 void CalendarWidget::paintCell(QPainter* painter, const QRect& rect, const QDate& date) const
 {
     QCalendarWidget::paintCell(painter, rect, date);
-    if(date >= _dateInSelected && date <= _dateOutSelected)
-    {
-        painter->setPen(_selectedDraw.pen);
-        painter->setBrush(_selectedDraw.brush);
-        painter->drawRect(rect.adjusted(0, 0, -1, -1));
-    }
+
     const auto& bookedDates = _parent->getDatesBookList();
     auto it = std::find_if(bookedDates.cbegin(), bookedDates.cend(), [date](const BookDaysData& bookData)
     {
         return bookData.checkDate(date);
     });
+
     if(it != bookedDates.cend())
     {
         painter->setPen(_bookedDraw.pen);
         painter->setBrush(_bookedDraw.brush);
+        painter->drawRect(rect.adjusted(0, 0, -1, -1));
+    }
+    if(date >= _dateInSelected && date <= _dateOutSelected)
+    {
+        painter->setPen(_selectedDraw.pen);
+        painter->setBrush(_selectedDraw.brush);
         painter->drawRect(rect.adjusted(0, 0, -1, -1));
     }
 }

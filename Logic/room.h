@@ -27,6 +27,7 @@ namespace logic
             QString info = QString("from:%1  till:%2").arg(dateIn.toString(frmt),dateOut.toString(frmt));
             return info;
         }
+        QList<Person> persons;
     };
     class Room
     {

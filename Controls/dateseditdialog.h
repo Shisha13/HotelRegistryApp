@@ -4,11 +4,17 @@
 #include <QDialog>
 #include <QList>
 #include <QDate>
+#include <QListWidgetItem>
 #include "calendarwidget.h"
 
 namespace Ui
 {
     class DatesEditDialog;
+}
+
+namespace logic
+{
+    struct BookDay;
 }
 
 class DatesEditDialog : public QDialog
@@ -28,6 +34,10 @@ protected:
 private slots:
     void on_refreshButton_clicked();
     void onDateChanged(const BookDaysData& data);
+
+    void onOrderItemClicked(QListWidgetItem* item);
+    void on_addButton_clicked();
+    void on_propertiesButton_clicked();
 
 private:
     Ui::DatesEditDialog* ui = nullptr;
