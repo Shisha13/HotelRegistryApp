@@ -8,7 +8,7 @@ RoomOrderPropertiesWidget::RoomOrderPropertiesWidget(QWidget *parent)
 
 }
 
-void RoomOrderPropertiesWidget::onOrderItemClicked(const logic::BookDay& data)
+void RoomOrderPropertiesWidget::onOrderItemClicked(const logic::Order& data)
 {
     clear();
     {//dates
@@ -44,14 +44,14 @@ RoomDataList::RoomDataList(QWidget* parent)
 
 void RoomDataList::addBookDates(const BookDaysData& data)
 {
-    logic::BookDay newOrder;
+    logic::Order newOrder;
     newOrder.dateIn = data.dateIn;
     newOrder.dateOut = data.dateOut;
     _orders.push_back(newOrder);
     refresh();
 }
 
-void RoomDataList::setData(int index, const logic::BookDay &data)
+void RoomDataList::setData(int index, const logic::Order &data)
 {
     if(index >= _orders.size())
     {
@@ -62,10 +62,22 @@ void RoomDataList::setData(int index, const logic::BookDay &data)
     refresh();
 }
 
-const logic::BookDay &RoomDataList::getCurrentItemData() const
+const logic::Order &RoomDataList::getCurrentItemData() const
 {
     const int row = currentRow();
     return _orders[row];
+}
+
+void RoomDataList::onRemoveOrder()
+{
+    auto current = currentItem();
+    if(nullptr == current)
+    {
+        return;
+    }
+    const int row = currentRow();
+    _orders.removeAt(row);
+    refresh();
 }
 
 void RoomDataList::refresh()
@@ -76,13 +88,15 @@ void RoomDataList::refresh()
         QString label;
         if(order.persons.empty())
         {
-            label.append("date In: ").append(order.dateIn.toString("yyyy.MM.dd")).append(" date Out: ").append(order.dateOut.toString("yyyy.MM.dd"));
+            label = order.getDatesStr();
+           // label.append("date In: ").append(order.dateIn.toString("yyyy.MM.dd")).append(" date Out: ").append(order.dateOut.toString("yyyy.MM.dd"));
         }
         else
         {
            label.append(order.persons.front().name);
         }
         addItem(label);
+        emit checkControls();
     }
 }
 

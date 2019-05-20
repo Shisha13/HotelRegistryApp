@@ -86,4 +86,5 @@ void CalendarWidget::onSelectionChanged(const QDate &date)
     emit dateChanged(BookDaysData(_dateInSelected, _dateOutSelected));
 
     forceRedraw();
+    emit checkControls();
 }

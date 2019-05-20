@@ -7,6 +7,13 @@
 
 namespace logic
 {
+    struct HotelSettings
+    {
+        int minRoom = 101;
+        int maxRoom = 909;
+        int maxPrice = 500;
+        int minPrice = 10;
+    };
 
     class Model : public QAbstractTableModel
     {
@@ -16,6 +23,8 @@ namespace logic
         explicit Model(QObject *parent = nullptr);
         explicit Model(QList<Room> rooms, QObject* parent = nullptr);
         void LoadFromXML(const QString& filePath);
+        void saveToXmlConfig();
+        const HotelSettings& getHotelSettings() const { return _settings; }
 
         int rowCount(const QModelIndex &parent) const override;
         int columnCount(const QModelIndex &parent) const override;
@@ -26,12 +35,16 @@ namespace logic
 //        bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
 //        bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
         const QList<Room>& getRooms() const;
+        void registryRoom(const Room& room);
+        bool hasRoom(int number) const;
+        void removeRoom(int number);
 
     protected:
         void readXML(const QDomNode &node);
 
     private:
         QList<Room> _rooms;
+        HotelSettings _settings;
     };
 }
 

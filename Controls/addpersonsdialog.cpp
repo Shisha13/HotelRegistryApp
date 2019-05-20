@@ -6,6 +6,7 @@ AddPersonsDialog::AddPersonsDialog(QWidget *parent) :
     ui(new Ui::AddPersonsDialog)
 {
     ui->setupUi(this);
+    refresh();
 }
 
 AddPersonsDialog::~AddPersonsDialog()
@@ -35,6 +36,7 @@ void AddPersonsDialog::on_addButton_clicked()
 
     _persons.append({name});
     refresh();
+    ui->lineEdit->clear();
 }
 
 void AddPersonsDialog::refresh()
@@ -55,4 +57,5 @@ void AddPersonsDialog::on_removeButton_clicked()
     }
     const int currentRow = ui->personsList->currentRow();
     _persons.removeAt(currentRow);
+    refresh();
 }

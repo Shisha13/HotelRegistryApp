@@ -167,7 +167,14 @@
     </property>
     <addaction name="actionsave"/>
    </widget>
+   <widget class="QMenu" name="menurooms">
+    <property name="title">
+     <string>rooms</string>
+    </property>
+    <addaction name="actionRegistry"/>
+   </widget>
    <addaction name="menufile"/>
+   <addaction name="menurooms"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -181,6 +188,11 @@
   <action name="actionsave">
    <property name="text">
     <string>save</string>
+   </property>
+  </action>
+  <action name="actionRegistry">
+   <property name="text">
+    <string>Registry</string>
    </property>
   </action>
  </widget>

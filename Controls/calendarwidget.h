@@ -56,6 +56,7 @@ protected slots:
 
 signals:
     void dateChanged(const BookDaysData& data);
+    void checkControls();
 };
 
 #endif // CALENDARWIDGET_H

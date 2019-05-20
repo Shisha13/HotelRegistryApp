@@ -15,7 +15,7 @@ Delegate::Delegate(QObject* parent)
 
 QWidget* Delegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
-    if(index.column() == static_cast<int>(COLUMNS::BOOK_DAYS))
+    if(index.column() == static_cast<int>(COLUMNS::ORDERS))
     {
         return new DatesEditDialog(parent);
     }
@@ -24,7 +24,7 @@ QWidget* Delegate::createEditor(QWidget* parent, const QStyleOptionViewItem& opt
 
 void Delegate::paint(QPainter* painter, const QStyleOptionViewItem &option, const QModelIndex& index) const
 {
-    if(index.column() == static_cast<int>(COLUMNS::BOOK_DAYS))
+    if(index.column() == static_cast<int>(COLUMNS::ORDERS))
     {
         QStyleOptionButton button;
         button.rect = option.rect;
@@ -39,7 +39,8 @@ void Delegate::paint(QPainter* painter, const QStyleOptionViewItem &option, cons
     }
     if(index.column() == static_cast<int>(COLUMNS::FREE_TODAY))
     {
-        QColor background = QColor(Qt::GlobalColor::red);
+        const bool isFree = index.data().toBool();
+        QColor background = QColor(isFree ? Qt::GlobalColor::green : Qt::GlobalColor::red);
          painter->fillRect(option.rect, background);
     }
     QStyledItemDelegate::paint(painter,option,index);
@@ -47,9 +48,11 @@ void Delegate::paint(QPainter* painter, const QStyleOptionViewItem &option, cons
 
 void Delegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 {
-    if(index.column() == static_cast<int>(COLUMNS::BOOK_DAYS))
+    if(index.column() == static_cast<int>(COLUMNS::ORDERS))
     {
-
+        const auto& orders = index.data(Qt::EditRole).value<OrdersList>();
+        static_cast<DatesEditDialog*>(editor)->addRoomOrders(orders.orders);
+        return;
     }
     QStyledItemDelegate::setEditorData(editor, index);
 }

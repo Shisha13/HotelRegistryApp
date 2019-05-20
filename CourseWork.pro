@@ -34,7 +34,8 @@ SOURCES += \
     Controls/dateseditdialog.cpp \
     Controls/calendarwidget.cpp \
     Controls/roomDataList.cpp \
-    Controls/addpersonsdialog.cpp
+    Controls/addpersonsdialog.cpp \
+    Controls/roomseditdialog.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -46,12 +47,14 @@ HEADERS += \
     calendarwidget.h \
     Controls/calendarwidget.h \
     Controls/roomDataList.h \
-    Controls/addpersonsdialog.h
+    Controls/addpersonsdialog.h \
+    Controls/roomseditdialog.h
 
 FORMS += \
         mainwindow.ui \
     Controls/dateseditdialog.ui \
-    Controls/addpersonsdialog.ui
+    Controls/addpersonsdialog.ui \
+    Controls/roomseditdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
