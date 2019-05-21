@@ -58,7 +58,15 @@ void Delegate::setEditorData(QWidget* editor, const QModelIndex& index) const
 }
 
 void Delegate::setModelData(QWidget* editor, QAbstractItemModel* model, const QModelIndex& index) const
-{
+{    
+    if(index.column() == static_cast<int>(COLUMNS::ORDERS))
+    {
+        const auto& roomOrders = static_cast<DatesEditDialog*>(editor)->getRoomOrders();
+        QVariant orderVar;
+        orderVar.setValue(OrdersList{roomOrders});
+        model->setData(index,orderVar);
+        return;
+    }
     QStyledItemDelegate::setModelData(editor, model ,index);
 }
 

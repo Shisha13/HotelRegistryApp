@@ -118,7 +118,6 @@ QVariant Model::data(const QModelIndex& index, int role) const
     }
     const auto& room  = _rooms.at(index.row());
     COLUMNS column = static_cast<COLUMNS>(index.column());
-
     return room.getData(column);
 }
 
@@ -174,6 +173,16 @@ bool Model::setData(const QModelIndex& index, const QVariant &value, int role)
     return false;
 }
 
+//bool Model::insertRows(int position, int rows, const QModelIndex &index)
+//{
+//    beginInsertRows(QModelIndex(), position, position+rows-1);
+
+//        // change the data structure.
+
+//    endInsertRows();
+//    return true;
+//}
+
 const QList<Room>& Model::getRooms() const
 {
     return _rooms;
@@ -181,7 +190,11 @@ const QList<Room>& Model::getRooms() const
 
 void Model::registryRoom(const Room& room)
 {
-   _rooms.push_back(room);
+    beginInsertRows(QModelIndex(), _rooms.size() - 1, 1);
+
+    _rooms.push_back(room);
+
+    endInsertRows();
 }
 
 bool Model::hasRoom(int number) const
@@ -204,7 +217,10 @@ void Model::removeRoom(int number)
     });
     if(it != _rooms.end())
     {
+        const int pos = static_cast<int>(std::distance(_rooms.begin(),it));
+        beginRemoveRows(QModelIndex(), pos, pos);
         _rooms.erase(it);
+        endRemoveRows();
     }
 }
 

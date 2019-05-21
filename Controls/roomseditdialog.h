@@ -21,9 +21,10 @@ public:
     ~RoomsEditDialog();
 protected:
     bool event(QEvent* event) override;
-private slots:
-    void on_registryButton_clicked();
 
+private slots:
+    void checkButtonsState(int);
+    void on_registryButton_clicked();
     void on_removeButton_clicked();
 
 private:

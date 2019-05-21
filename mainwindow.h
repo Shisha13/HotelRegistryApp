@@ -10,6 +10,7 @@ class MainWindow;
 namespace logic
 {
     class Model;
+    class FilterProxyModel;
     class Room;
 }
 class MainWindow : public QMainWindow
@@ -27,9 +28,16 @@ private slots:
     void on_actionsave_triggered();
     void on_actionRegistry_triggered();
 
+    void on_searchLineEdit_textChanged(const QString& text);
+
+    void on_classComboBox_currentTextChanged(const QString &arg1);
+
+    void on_dateEdit_dateChanged(const QDate &date);
+
 private:
     Ui::MainWindow *ui;
     logic::Model* _model = nullptr;
+    logic::FilterProxyModel* _filterModel = nullptr;
 };
 
 #endif // MAINWINDOW_H

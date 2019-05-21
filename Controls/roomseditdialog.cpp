@@ -21,7 +21,11 @@ RoomsEditDialog::RoomsEditDialog(logic::Model* model, QWidget *parent) :
     ui->removeNumber->setMinimum(settings.minRoom);
     ui->removeNumber->setMaximum(settings.maxRoom);
 
+    connect(ui->regNumber, QOverload<int>::of(&QSpinBox::valueChanged), this, &RoomsEditDialog::checkButtonsState);
+    connect(ui->removeNumber, QOverload<int>::of(&QSpinBox::valueChanged), this, &RoomsEditDialog::checkButtonsState);
+
     ui->price->setValidator(new QDoubleValidator(settings.minPrice, settings.maxPrice, 5, ui->price));
+    checkButtonsState(0);
 }
 
 RoomsEditDialog::~RoomsEditDialog()
@@ -31,22 +35,22 @@ RoomsEditDialog::~RoomsEditDialog()
 
 bool RoomsEditDialog::event(QEvent *event)
 {
-    if(!ui || !ui->removeButton || !ui->registryButton)
-    {
-        return QDialog::event(event);
-    }
-    const auto& settings = _model->getHotelSettings();
-    bool removeEnabled =  _model->hasRoom(ui->removeNumber->text().toInt());
+//    if(!ui || !ui->removeButton || !ui->registryButton)
+//    {
+//        return QDialog::event(event);
+//    }
+//    const auto& settings = _model->getHotelSettings();
+//    bool removeEnabled =  _model->hasRoom(ui->removeNumber->text().toInt());
 
-    const int regNum = ui->regNumber->text().toInt();
-    const int price = ui->price->text().toInt();
+//    const int regNum = ui->regNumber->text().toInt();
+//    const int price = ui->price->text().toInt();
 
-    bool regEnabled = !_model->hasRoom(regNum) && regNum >= settings.minRoom && regNum <= settings.maxRoom;
+//    bool regEnabled = !_model->hasRoom(regNum) && regNum >= settings.minRoom && regNum <= settings.maxRoom;
 
-    regEnabled |=  price >= settings.minPrice && price <= settings.maxPrice;
+//    regEnabled |=  price >= settings.minPrice && price <= settings.maxPrice;
 
-    ui->removeButton->setEnabled(removeEnabled);
-    ui->registryButton->setEnabled(regEnabled);
+//    ui->removeButton->setEnabled(removeEnabled);
+//    ui->registryButton->setEnabled(regEnabled);
 
     return QDialog::event(event);
 }
@@ -60,9 +64,27 @@ void RoomsEditDialog::on_registryButton_clicked()
     newRoom.setData(logic::COLUMNS::LIVING_SPACE, ui->livingSpace->text().toInt());
 
     _model->registryRoom(newRoom);
+    close();
+}
+
+void RoomsEditDialog::checkButtonsState(int)
+{
+    const auto& settings = _model->getHotelSettings();
+    bool removeEnabled =  _model->hasRoom(ui->removeNumber->text().toInt());
+
+    const int regNum = ui->regNumber->text().toInt();
+    const int price = ui->price->text().toInt();
+
+    bool regEnabled = !_model->hasRoom(regNum) && regNum >= settings.minRoom && regNum <= settings.maxRoom;
+
+    regEnabled |=  price >= settings.minPrice && price <= settings.maxPrice;
+
+    ui->removeButton->setEnabled(removeEnabled);
+    ui->registryButton->setEnabled(regEnabled);
 }
 
 void RoomsEditDialog::on_removeButton_clicked()
 {
     _model->removeRoom(ui->removeNumber->text().toInt());
+    close();
 }

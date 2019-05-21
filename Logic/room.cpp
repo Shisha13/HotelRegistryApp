@@ -31,15 +31,17 @@ QVariant Room::getData(COLUMNS type) const
     case  COLUMNS::LIVING_SPACE:
         return  _livivngSpace;
     case  COLUMNS::FREE_TODAY:
+    {
+        const auto& today = QDate::currentDate();
         for(const auto& order : _orders)
         {
-            const auto& today = QDate::currentDate();
-            if(order.dateIn >= today && today <= order.dateOut)
+            if(today >= order.dateIn && today <= order.dateOut)
             {
                 return false;
             }
         }
         return true;
+    }
     default:
         return QVariant();
     }

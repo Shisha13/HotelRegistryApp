@@ -41,11 +41,14 @@ void AddPersonsDialog::on_addButton_clicked()
 
 void AddPersonsDialog::refresh()
 {
-    ui->personsList->clear();
-    for(const auto& person : _persons)
-    {
-        ui->personsList->addItem(person.name);
-    }
+   if(ui->personsList)
+   {
+        ui->personsList->clear();
+        for(const auto& person : _persons)
+        {
+            ui->personsList->addItem(person.name);
+        }
+   }
 }
 
 void AddPersonsDialog::on_removeButton_clicked()

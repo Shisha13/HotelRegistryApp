@@ -14,143 +14,110 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QTableView" name="tableView">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>0</y>
-      <width>561</width>
-      <height>291</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>300</y>
-      <width>111</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>all rooms</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_2">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>330</y>
-      <width>111</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>free rooms</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_3">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>360</y>
-      <width>111</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>booked rooms</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>420</x>
-      <y>320</y>
-      <width>261</width>
-      <height>21</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>320</x>
-      <y>300</y>
-      <width>71</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Search by :&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_4">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>300</y>
-      <width>111</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Econom</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_5">
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>330</y>
-      <width>111</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Business</string>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="radioButton">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>320</y>
-      <width>97</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Free Date</string>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="radioButton_2">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>340</y>
-      <width>97</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Person</string>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="radioButton_3">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>360</y>
-      <width>97</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Person</string>
-    </property>
-   </widget>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0" colspan="4">
+     <widget class="QTableView" name="tableView"/>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>Filter:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Search by :&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QRadioButton" name="allRoomsRB">
+      <property name="text">
+       <string>All Rooms</string>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">filterGroup</string>
+      </attribute>
+     </widget>
+    </item>
+    <item row="2" column="1" colspan="2">
+     <widget class="QRadioButton" name="freeDateRB">
+      <property name="text">
+       <string>Free Date</string>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">searchGroup</string>
+      </attribute>
+     </widget>
+    </item>
+    <item row="2" column="3">
+     <widget class="QDateEdit" name="dateEdit"/>
+    </item>
+    <item row="3" column="0">
+     <widget class="QRadioButton" name="freeRoomsRB">
+      <property name="text">
+       <string>Free Rooms</string>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">filterGroup</string>
+      </attribute>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QRadioButton" name="personRB">
+      <property name="text">
+       <string>Person</string>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">searchGroup</string>
+      </attribute>
+     </widget>
+    </item>
+    <item row="3" column="3">
+     <widget class="QLineEdit" name="searchLineEdit"/>
+    </item>
+    <item row="4" column="0">
+     <widget class="QRadioButton" name="bookedRoomsRb">
+      <property name="text">
+       <string>Booked Rooms</string>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">filterGroup</string>
+      </attribute>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QRadioButton" name="classRB">
+      <property name="text">
+       <string>Class</string>
+      </property>
+      <attribute name="buttonGroup">
+       <string notr="true">searchGroup</string>
+      </attribute>
+     </widget>
+    </item>
+    <item row="4" column="3">
+     <widget class="QComboBox" name="classComboBox">
+      <item>
+       <property name="text">
+        <string>econom</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>premium</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>lux</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -199,4 +166,8 @@
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
+ <buttongroups>
+  <buttongroup name="filterGroup"/>
+  <buttongroup name="searchGroup"/>
+ </buttongroups>
 </ui>

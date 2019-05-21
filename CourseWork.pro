@@ -35,7 +35,8 @@ SOURCES += \
     Controls/calendarwidget.cpp \
     Controls/roomDataList.cpp \
     Controls/addpersonsdialog.cpp \
-    Controls/roomseditdialog.cpp
+    Controls/roomseditdialog.cpp \
+    Logic/filterproxymodel.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -48,7 +49,8 @@ HEADERS += \
     Controls/calendarwidget.h \
     Controls/roomDataList.h \
     Controls/addpersonsdialog.h \
-    Controls/roomseditdialog.h
+    Controls/roomseditdialog.h \
+    Logic/filterproxymodel.h
 
 FORMS += \
         mainwindow.ui \
